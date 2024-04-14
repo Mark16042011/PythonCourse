@@ -5,11 +5,20 @@ class Bus:
         self.max_speed = max_speed
         self.passengers = passengers
         self.seats = seats
-        self.has_empty_seats: bool
-        if len(self.passengers) == self.capacity:
-            self.has_empty_seats = False
-        else:
-            self.has_empty_seats = True
+
+    # TODO: убрать пересчет has_empty_seats из каждого места, пускай оно считается в моменте отдельным проперти
+    # количество пустых мест в автобусе
+    @property
+    def __countOfEmptySeats(self) -> int:
+        count = 0
+        for item in self.seats.values():
+            if item is None:
+                count += 1
+        return count
+
+    @property
+    def hasEmptySeats(self) -> bool:
+        return self.__countOfEmptySeats > 0
 
     def landing_or_disembarkation(self, names: list, operation: str):
         if operation == "disembarkation":
