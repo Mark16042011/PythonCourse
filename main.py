@@ -38,7 +38,7 @@ class Bus:
 
     def __iadd__(self, other):
         if self.has_empty_seats:
-            if type(other) != str:
+            if type(other) is str:
                 for item in other:
                     if self.has_empty_seats:
                         self.passengers.append(item)
@@ -56,7 +56,7 @@ class Bus:
 
     def __isub__(self, other):
         if self.has_empty_seats:
-            if type(other) != str:
+            if type(other) is str:
                 for item in other:
                     if self.has_empty_seats:
                         self.passengers.remove(item)
