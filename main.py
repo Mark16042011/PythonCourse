@@ -24,6 +24,7 @@ class Bus:
             for item in other:
                 if self.hasEmptySeats:
                     self.passengers.append(item)
+        return self
 
     # def __isub__(self, other):
     #     if self.has_empty_seats:
