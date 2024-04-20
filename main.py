@@ -10,79 +10,40 @@ class Bus:
     # количество пустых мест в автобусе
     @property
     def __countOfEmptySeats(self) -> int:
-        count = 0
-        for item in self.seats.values():
-            if item is None:
-                count += 1
-        return count
+        return self.capacity - len(self.passengers)
 
     @property
     def hasEmptySeats(self) -> bool:
         return self.__countOfEmptySeats > 0
 
-    def landing_or_disembarkation(self, names: list, operation: str):
-        if operation == "disembarkation":
-            for name in names:
-                self.passengers.remove(name)
-        elif operation == "landing" and self.has_empty_seats:
-            for name in names:
-                if len(self.passengers) == self.capacity:
-                    self.has_empty_seats = False
-                else:
-                    self.has_empty_seats = True
-                    if self.has_empty_seats:
-                        self.passengers.append(name)
-        if len(self.passengers) == self.capacity:
-            self.has_empty_seats = False
-        else:
-            self.has_empty_seats = True
-        print(self.passengers)
-
-    def speed_boost_or_decline(self, value: int, operation: str):
-        if operation == "Boost" and self.speed + value <= self.max_speed:
-            self.speed += value
-        elif operation == "Decline" and self.speed - value >= 0:
-            self.speed -= value
-        print(self.speed)
-
     def __iadd__(self, other):
-        if self.has_empty_seats:
-            if type(other) is str:
-                for item in other:
-                    if self.has_empty_seats:
-                        self.passengers.append(item)
-                        if len(self.passengers) == self.capacity:
-                            self.has_empty_seats = False
-                        else:
-                            self.has_empty_seats = True
-            elif self.has_empty_seats:
+        if type(other) is str:
+            if self.hasEmptySeats:
                 self.passengers.append(other)
-                if len(self.passengers) == self.capacity:
-                    self.has_empty_seats = False
-                else:
-                    self.has_empty_seats = True
-            print(self.passengers)
+        elif self.hasEmptySeats:
+            for item in other:
+                if self.hasEmptySeats:
+                    self.passengers.append(item)
 
-    def __isub__(self, other):
-        if self.has_empty_seats:
-            if type(other) is str:
-                for item in other:
-                    if self.has_empty_seats:
-                        self.passengers.remove(item)
-                        if len(self.passengers) == self.capacity:
-                            self.has_empty_seats = False
-                        else:
-                            self.has_empty_seats = True
-            elif self.has_empty_seats:
-                self.passengers.remove(other)
-                if len(self.passengers) == self.capacity:
-                    self.has_empty_seats = False
-                else:
-                    self.has_empty_seats = True
+    # def __isub__(self, other):
+    #     if self.has_empty_seats:
+    #         if type(other) is str:
+    #             for item in other:
+    #                 if self.has_empty_seats:
+    #                     self.passengers.remove(item)
+    #                     if len(self.passengers) == self.capacity:
+    #                         self.has_empty_seats = False
+    #                     else:
+    #                         self.has_empty_seats = True
+    #         elif self.has_empty_seats:
+    #             self.passengers.remove(other)
+    #             if len(self.passengers) == self.capacity:
+    #                 self.has_empty_seats = False
+    #             else:
+    #                 self.has_empty_seats = True
 
 
 bus1 = Bus(23, 4, 35, ["peter", "oleg"], {1: "peter", 2: "oleg"})
-bus1.landing_or_disembarkation(["ana"], "landing")
-bus1.speed_boost_or_decline(23, "Decline")
 bus1 += ["maxim", "sana"]
 # bus1 -= "maxim"
+print(bus1.passengers)
