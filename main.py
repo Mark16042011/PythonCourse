@@ -26,25 +26,18 @@ class Bus:
                     self.passengers.append(item)
         return self
 
-    # def __isub__(self, other):
-    #     if self.has_empty_seats:
-    #         if type(other) is str:
-    #             for item in other:
-    #                 if self.has_empty_seats:
-    #                     self.passengers.remove(item)
-    #                     if len(self.passengers) == self.capacity:
-    #                         self.has_empty_seats = False
-    #                     else:
-    #                         self.has_empty_seats = True
-    #         elif self.has_empty_seats:
-    #             self.passengers.remove(other)
-    #             if len(self.passengers) == self.capacity:
-    #                 self.has_empty_seats = False
-    #             else:
-    #                 self.has_empty_seats = True
+    def __isub__(self, other):
+        if type(other) is not str:
+            for item in other:
+                if item in self.passengers:
+                    self.passengers.remove(item)
+        elif type(other) is str:
+            if other in self.passengers:
+                self.passengers.remove(other)
+        return self
 
 
 bus1 = Bus(23, 4, 35, ["peter", "oleg"], {1: "peter", 2: "oleg"})
 bus1 += ["maxim", "sana"]
-# bus1 -= "maxim"
+bus1 -= ["maxim", "oleg", "mark"]
 print(bus1.passengers)
