@@ -6,8 +6,6 @@ class Bus:
         self.passengers = passengers
         self.seats = seats
 
-    # TODO: убрать пересчет has_empty_seats из каждого места, пускай оно считается в моменте отдельным проперти
-    # количество пустых мест в автобусе
     @property
     def __countOfEmptySeats(self) -> int:
         return self.capacity - len(self.passengers)
