@@ -34,8 +34,15 @@ class Bus:
                 self.passengers.remove(other)
         return self
 
+    def __contains__(self, item: str):
+        if item in self.passengers:
+            return True
+        else:
+            return False
+
 
 bus1 = Bus(23, 4, 35, ["peter", "oleg"], {1: "peter", 2: "oleg"})
 bus1 += ["maxim", "sana"]
 bus1 -= ["maxim", "oleg", "mark"]
 print(bus1.passengers)
+print("masha" in bus1)
