@@ -1,48 +1,30 @@
-class Bus:
-    def __init__(self, speed: float, capacity: int, max_speed: float, passengers: list, seats: dict):
-        self.speed = speed
-        self.capacity = capacity
-        self.max_speed = max_speed
-        self.passengers = passengers
-        self.seats = seats
+bad_words = ["дурак", "лрлрлрлрлр"]
 
-    @property
-    def __countOfEmptySeats(self) -> int:
-        return self.capacity - len(self.passengers)
 
-    @property
-    def hasEmptySeats(self) -> bool:
-        return self.__countOfEmptySeats > 0
+class Post:
+    def __init__(self, name: str, date: str, likes: list, text: str, comments: dict):
+        self.name = name
+        self.date = date
+        self.likes = likes
+        self.text = text
+        self.comments = comments
+        for badWord in bad_words:
+            gratings = "#" * len(badWord)
+            self.text = self.text.replace(badWord, gratings)
 
-    def __iadd__(self, other):
-        if type(other) is str:
-            if self.hasEmptySeats:
-                self.passengers.append(other)
-        elif self.hasEmptySeats:
-            for item in other:
-                if self.hasEmptySeats:
-                    self.passengers.append(item)
-        return self
-
-    def __isub__(self, other):
-        if type(other) is not str:
-            for item in other:
-                if item in self.passengers:
-                    self.passengers.remove(item)
-        elif type(other) is str:
-            if other in self.passengers:
-                self.passengers.remove(other)
-        return self
-
-    def __contains__(self, item: str):
-        if item in self.passengers:
-            return True
+    def like(self, name: str):
+        if name not in self.likes:
+            self.likes.append(name)
         else:
-            return False
+            self.likes.remove(name)
+        return len(self.likes)
+
+    def writeaComment(self, name: str, text: str):
+        self.comments[name] = text
 
 
-bus1 = Bus(23, 4, 35, ["peter", "oleg"], {1: "peter", 2: "oleg"})
-bus1 += ["maxim", "sana"]
-bus1 -= ["maxim", "oleg", "mark"]
-print(bus1.passengers)
-print("masha" in bus1)
+#TODO: сделать список словарей со списками в comments. Типа [ {name1:["комент1", "коммент2"]}, {name2:["комент1", "коммент2"]} ]
+
+post1 = Post("oleg", "20.04.88", ["user"], "Ты дурак, лрлрлрлрлр", {"user": "cогл"})
+print(post1.like("user"))
+print(post1.text)
