@@ -1,13 +1,15 @@
+from PostSchemas import PostSchema, Comment
+
 bad_words = ["дурак", "лрлрлрлрлр"]
 
 
 class Post:
-    def __init__(self, name: str, date: str, likes: list, text: str, comments: list):
-        self.name = name
-        self.date = date
-        self.likes = likes
-        self.text = text
-        self.comments = comments
+    def __init__(self, post: PostSchema):
+        self.user = post.user
+        self.date = post.date
+        self.likes = post.likes
+        self.text = post.text
+        self.comments = post.comments
         for badWord in bad_words:
             gratings = "#" * len(badWord)
             self.text = self.text.replace(badWord, gratings)
@@ -19,15 +21,15 @@ class Post:
             self.likes.remove(name)
         return len(self.likes)
 
-    def writeComment(self, user: str, text: str):
+    def writeComment(self, comment: Comment):
         for item in self.comments:
             for name in item:
-                if name == user:
-                    item[name].append(text)
+                if name == comment.user:
+                    item[name].append(comment.text)
         return self.comments
 
 
-post1 = Post("oleg", "20.04.88", ["user"], "Ты дурак, лрлрлрлрлр",
-             [{"name1": ["коммент1", "коммент2"]}, {"name2": ["комент1", "коммент2"]}])
+post1 = Post(PostSchema(user="oleg", date="20.04.88", likes=["user"], text="Ты дурак, лрлрлрлрлр",
+                        comments=[{"name1": ["коммент1", "коммент2"]}, {"name2": ["комент1", "коммент2"]}]))
 print(post1.like("user"))
-print(post1.writeComment("name1", "коммент3"))
+print(post1.writeComment(Comment(user='user1', content='213')))
