@@ -1,0 +1,22 @@
+{
+  "users": [
+    {
+      "user1": {
+        "name": "nick",
+        "date_of_birth": "18.12.2002"
+      }
+    },
+    {
+      "user2": {
+        "name": "nick",
+        "date_of_birth": "18.12.2002"
+      }
+    },
+    {
+      "user3": {
+        "name": "nick",
+        "date_of_birth": "18.12.2002"
+      }
+    }
+  ]
+}

@@ -3,7 +3,7 @@ from fastapi import FastAPI
 app = FastAPI()
 
 
-@app.post("/names")
+@app.post(" /names")
 def new_name(name: str):
     file = open("names.txt", "a")
     file.write(name + "\n")
@@ -16,7 +16,7 @@ def delete_name(name: str):
     file = open("names.txt", "r")
     new_names = []
     for item in file:
-        if item != name:
+        if item.replace('\n', '') != name:
             new_names.append(item)
     file.close()
 
@@ -36,3 +36,5 @@ def get_names():
         names.append(item)
     file.close()
     return names
+
+print(sorted([2, 3, 1, 1]))
