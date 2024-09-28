@@ -37,5 +37,3 @@ def get_names():
     file.close()
     return names
 
-
-
