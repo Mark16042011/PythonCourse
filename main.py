@@ -3,7 +3,7 @@ from fastapi import FastAPI
 app = FastAPI()
 
 
-@app.post(" /names")
+@app.post("/names")
 def new_name(name: str):
     file = open("names.txt", "a")
     file.write(name + "\n")
@@ -37,4 +37,5 @@ def get_names():
     file.close()
     return names
 
-print(sorted([2, 3, 1, 1]))
+
+
