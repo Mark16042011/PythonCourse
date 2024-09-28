@@ -1,22 +1,19 @@
 {
   "users": [
     {
-      "user1": {
-        "name": "nick",
-        "date_of_birth": "18.12.2002"
-      }
+      "name": "nick",
+      "id": 1,
+      "date_of_birth": "18.12.2015"
     },
     {
-      "user2": {
-        "name": "nick",
-        "date_of_birth": "18.12.2002"
-      }
+      "name": "oleg",
+      "id": 2,
+      "date_of_birth": "03.01.2016"
     },
     {
-      "user3": {
-        "name": "nick",
-        "date_of_birth": "18.12.2002"
-      }
+      "name": "sana",
+      "id": 3,
+      "date_of_birth": "27.05.2017"
     }
   ]
 }
