@@ -44,7 +44,7 @@ def new_name(name: str, date_of_birth: str):
 
 
 @app.delete("/names")
-def delete_name(name: str):
+def delete_user(name: str):
     file = open("data.json", "r")
     data: dict = json.load(file)
     new_users = []
