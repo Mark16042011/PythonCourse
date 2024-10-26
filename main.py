@@ -1,9 +1,6 @@
 import json
-from lib2to3.pytree import NodePattern
-from typing import Optional
 
 from fastapi import FastAPI, HTTPException
-from pydantic import Field, BaseModel
 
 app = FastAPI()
 
