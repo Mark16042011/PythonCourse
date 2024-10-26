@@ -1,6 +1,9 @@
 import json
+from lib2to3.pytree import NodePattern
+from typing import Optional
 
 from fastapi import FastAPI, HTTPException
+from pydantic import Field, BaseModel
 
 app = FastAPI()
 
@@ -17,7 +20,6 @@ def new_name(name: str, date_of_birth: str):
         if temp_name == name:
             # Если пользователь с таким именем уже существует, то прокидываем ошибку
             raise HTTPException(status_code=418, detail="User with this name already exist")
-
 
     biggest_id = 0
     for user in users:
@@ -48,14 +50,13 @@ def delete_user(name: str):
     file = open("data.json", "r")
     data: dict = json.load(file)
     new_users = []
-    users: list[dict] = data.get("users",[])
+    users: list[dict] = data.get("users", [])
     for user in users:
         if user.get("name") != name:
             new_users.append(user)
     print(new_users)
 
     file.close()
-
 
     new_data = {
         "users": new_users
@@ -74,3 +75,24 @@ def get_names():
     users = data.get("users")
 
     return users
+
+
+@app.put("/names")
+def update_user(id: int, name: str = None, date_of_birth: str = None):
+    file = open("data.json", "r")
+    data: dict = json.load(file)
+    file.close()
+    users: list[dict] = data.get("users")
+
+    for user in users:
+        if user.get('id') == id:
+            user.update({"name": name if name else user.get("Name"),
+                         "date_of_birth": date_of_birth if date_of_birth else user.get("date_of_birth")})
+
+            file = open("data.json", "w")
+            file.write(json.dumps({"users": users}, indent=2))
+            file.close()
+
+            return user
+
+    raise HTTPException(status_code=404)
