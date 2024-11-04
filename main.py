@@ -1,6 +1,9 @@
 import json
+from lib2to3.pytree import NodePattern
+from typing import Optional
 
 from fastapi import FastAPI, HTTPException
+from pydantic import Field, BaseModel
 
 app = FastAPI()
 
@@ -66,12 +69,21 @@ def delete_user(name: str):
 
 
 @app.get("/names")
-def get_names():
+def get_names(name: str = None, date_of_birth: str = None):
     file = open("data.json", "r")
     data: dict = json.load(file)
     users = data.get("users")
+    users_list = []
+    for item in users:
+        if item.get("name") == name and item.get("date_of_birth") == date_of_birth:
+            users_list.append(item)
+        elif item.get("name") == name and date_of_birth == None:
+            users_list.append(item)
+        elif item.get("date_of_birth") == date_of_birth and name == None:
+            users_list.append(item)
+        print(item)
 
-    return users
+    return users_list
 
 
 @app.put("/names")
