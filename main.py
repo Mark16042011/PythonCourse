@@ -77,11 +77,12 @@ def get_names(name: str = None, date_of_birth: str = None):
     for item in users:
         if item.get("name") == name and item.get("date_of_birth") == date_of_birth:
             users_list.append(item)
-        elif item.get("name") == name and date_of_birth == None:
+        elif item.get("name") == name and date_of_birth is None:
             users_list.append(item)
-        elif item.get("date_of_birth") == date_of_birth and name == None:
+        elif item.get("date_of_birth") == date_of_birth and name is None:
             users_list.append(item)
-        print(item)
+        elif name is None and date_of_birth is None:
+            users_list.append(users)
 
     return users_list
 
