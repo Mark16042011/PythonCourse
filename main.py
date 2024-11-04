@@ -81,8 +81,8 @@ def get_names(name: str = None, date_of_birth: str = None):
             users_list.append(item)
         elif item.get("date_of_birth") == date_of_birth and name is None:
             users_list.append(item)
-        elif name is None and date_of_birth is None:
-            users_list.append(users)
+    if name is None and date_of_birth is None:
+        users_list.append(users)
 
     return users_list
 
